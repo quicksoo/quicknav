@@ -2,8 +2,8 @@
   <div id="app">
     <!-- 左侧固定导航栏 -->
     <aside class="sidebar">
-      <div class="sidebar-header">
-        <h1 class="logo">🛠️ 编程工具</h1>
+      <div class="sidebar-header" @click="goToHome">
+        <h1 class="logo clickable">⚡ 快导航 QuickNav</h1>
       </div>
       
       <nav class="nav-menu">
@@ -26,39 +26,39 @@
     <main class="main-content">
       <!-- 简洁的顶部栏 -->
       <header class="top-header">
-        <div class="breadcrumb">
-          <button 
-            v-if="$route.path !== '/'"
-            class="back-btn"
-            @click="$router.push('/')"
-          >
-            ← 返回
-          </button>
-          <span v-if="$route.path === '/' && !selectedCategory">工具分类</span>
-          <span v-else-if="$route.path === '/' && selectedCategory">{{ getSelectedCategoryIcon() }} {{ selectedCategory }}</span>
-          <span v-else>{{ getCurrentToolName() }}</span>
+        <div class="header-content">
+          <div class="breadcrumb">
+            <span v-if="$route.path === '/' && !selectedCategory">工具分类</span>
+            <span v-else-if="$route.path === '/' && selectedCategory">{{ getSelectedCategoryIcon() }} {{ selectedCategory }}</span>
+            <span v-else>{{ getCurrentToolName() }}</span>
+          </div>
+          
+          <!-- 广告展示区域 -->
+          <div class="ad-section" v-if="enabledAds.length > 0">
+            <div 
+              v-for="ad in enabledAds" 
+              :key="ad.id"
+              class="ad-banner"
+              :style="{ background: ad.bgColor, color: ad.textColor }"
+              @click="openAdLink(ad.link)"
+            >
+              <div class="ad-content">
+                <div class="ad-title">{{ ad.title }}</div>
+                <div class="ad-subtitle">{{ ad.subtitle }}</div>
+              </div>
+              <div class="ad-action">
+                <span class="ad-btn">查看</span>
+              </div>
+            </div>
+          </div>
         </div>
       </header>
       
       <!-- 页面内容 -->
       <div class="content-wrapper">
         <!-- 工具页面显示 -->
-        <div v-if="$route.path !== '/'">
-          <router-view />
-        </div>
-        
-        <!-- 首页内容 -->
-        <div v-else>
-          <!-- 未选择分类时的欢迎页面 -->
-          <div v-if="!selectedCategory" class="welcome-page">
-            <div class="welcome-content">
-              <h1>欢迎使用编程工具导航</h1>
-              <p>选择左侧分类查看相关工具</p>
-            </div>
-          </div>
-          
-          <!-- 选中分类的工具列表 -->
-          <div v-else class="tools-page">
+        <div v-if="$route.path !== '/' || selectedCategory">
+          <div v-if="selectedCategory" class="tools-page">
             <div class="page-title">
               <p>{{ getSelectedCategoryDescription() }}</p>
             </div>
@@ -76,6 +76,14 @@
               </router-link>
             </div>
           </div>
+          <div v-else>
+            <router-view />
+          </div>
+        </div>
+        
+        <!-- 首页内容 -->
+        <div v-else>
+          <router-view />
         </div>
       </div>
     </main>
@@ -88,7 +96,88 @@ export default {
   data() {
     return {
       selectedCategory: null,
+      // 广告位配置（最多2个）
+      advertisements: [
+        {
+          id: 1,
+          title: '高效开发工具',
+          subtitle: '提升开发效率 50%',
+          link: 'https://example.com/dev-tools',
+          image: '',
+          bgColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          textColor: '#ffffff',
+          enabled: true
+        },
+        {
+          id: 2,
+          title: '云服务器特惠',
+          subtitle: '新用户首年优惠 85折',
+          link: 'https://example.com/cloud-server',
+          image: '',
+          bgColor: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+          textColor: '#ffffff',
+          enabled: true
+        },
+        {
+          id: 3,
+          title: '数据可视化工具',
+          subtitle: '可视化数据处理 70%',
+          link: 'https://example.com/data-visualization',
+          image: '',
+          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
+          textColor: '#ffffff',
+          enabled: true
+        },
+        {
+          id: 4,
+          title: '图像处理工具',
+          subtitle: '处理图片、视频等 multimedia 文件',
+          link: 'https://example.com/image-processing',
+          image: '',
+          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
+          textColor: '#ffffff',
+          enabled: true
+        },
+        {
+          id: 5,
+          title: '机器学习工具',
+          subtitle: '机器学习算法实现',
+          link: 'https://example.com/machine-learning',
+          image: '',
+          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
+          textColor: '#ffffff',
+          enabled: true
+        },
+        {
+          id: 6,
+          title: '数据可视化工具',
+          subtitle: '可视化数据处理 70%',
+          link: 'https://example.com/data-visualization',
+          image: '',
+          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
+          textColor: '#ffffff',
+          enabled: true
+        },
+        {
+          id: 7,
+          title: '数据可视化工具',
+          subtitle: '可视化数据处理 70%',
+          link: 'https://example.com/data-visualization',
+          image: '',
+          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
+          textColor: '#ffffff',
+          enabled: true
+        }
+      ],
       categories: [
+        {
+          name: '每日热点',
+          icon: '🔥',
+          description: '汇聚各大平台热点资讯，一键获取今日热门话题',
+          tools: [
+            { path: '/daily-hotspot', name: '每日热点', icon: '🔥', description: '汇聚微博、知乎、头条等平台热点，实时更新热门资讯' }
+          ]
+        },
         {
           name: '文本处理',
           icon: '📝',
@@ -196,7 +285,32 @@ export default {
       ]
     }
   },
+  
+  computed: {
+    // 获取启用的广告（最多2个）
+    enabledAds() {
+      return this.advertisements.filter(ad => ad.enabled).slice(0, 5)
+    }
+  },
+  
   methods: {
+    // Logo点击返回首页
+    goToHome() {
+      this.selectedCategory = null
+      if (this.$route.path !== '/') {
+        this.$router.push('/')
+      }
+    },
+    
+    // 广告点击处理
+    openAdLink(link) {
+      if (link) {
+        window.open(link, '_blank')
+        // 这里可以添加点击统计逻辑
+        console.log('广告点击:', link)
+      }
+    },
+    
     selectCategory(categoryName) {
       this.selectedCategory = categoryName
       // 如果不在首页，先跳转到首页
@@ -222,6 +336,7 @@ export default {
     
     getCurrentToolName() {
       const toolNames = {
+        '/daily-hotspot': '每日热点',
         '/rich-editor': '富文本编辑器',
         '/json-tool': 'JSON工具',
         '/base64-tool': 'Base64编解码',
@@ -286,6 +401,12 @@ export default {
 .sidebar-header {
   padding: 24px 20px;
   border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-header:hover {
+  background: #f8f9fa;
 }
 
 .logo {
@@ -293,6 +414,12 @@ export default {
   font-weight: 600;
   color: #2c3e50;
   margin: 0;
+  transition: all 0.2s ease;
+}
+
+.logo.clickable:hover {
+  color: #2196f3;
+  transform: scale(1.02);
 }
 
 /* 导航菜单 */
@@ -357,6 +484,13 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
 .breadcrumb {
   display: flex;
   align-items: center;
@@ -366,20 +500,81 @@ export default {
   color: #37474f;
 }
 
-.back-btn {
-  background: #f5f5f5;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 14px;
-  color: #666;
+/* 广告区域样式 */
+.ad-section {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.ad-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  max-width: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ad-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.ad-banner:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.ad-content {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.ad-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.ad-subtitle {
+  font-size: 12px;
+  opacity: 0.9;
+  line-height: 1.2;
+}
+
+.ad-action {
+  position: relative;
+  z-index: 2;
+}
+
+.ad-btn {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.2s ease;
 }
 
-.back-btn:hover {
-  background: #eeeeee;
-  color: #333;
+.ad-banner:hover .ad-btn {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* 内容包装器 */
@@ -516,6 +711,24 @@ export default {
   .category-item {
     padding: 8px 16px;
     white-space: nowrap;
+  }
+  
+  /* 广告区域移动端适配 */
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .ad-section {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .ad-banner {
+    min-width: auto;
+    max-width: none;
+    justify-content: space-between;
   }
   
   .tools-page {

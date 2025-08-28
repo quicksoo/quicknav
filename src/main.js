@@ -5,6 +5,7 @@ import './style.css'
 
 // 导入组件
 import Home from './components/Home.vue'
+import DailyHotspot from './components/DailyHotspot.vue'
 import RichEditor from './components/RichEditor.vue'
 import JsonTool from './components/JsonTool.vue'
 import Base64Tool from './components/Base64Tool.vue'
@@ -38,6 +39,7 @@ import CronGenerator from './components/CronGenerator.vue'
 // 路由配置
 const routes = [
   { path: '/', component: Home },
+  { path: '/daily-hotspot', component: DailyHotspot },
   { path: '/rich-editor', component: RichEditor },
   { path: '/json-tool', component: JsonTool },
   { path: '/base64-tool', component: Base64Tool },
