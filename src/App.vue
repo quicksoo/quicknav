@@ -1,4 +1,8 @@
+<script setup>
+import { Analytics } from '@vercel/analytics/vue';
+</script>
 <template>
+   <Analytics />
   <div id="app">
     <!-- 左侧固定导航栏 -->
     <aside class="sidebar">

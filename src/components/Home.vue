@@ -5,32 +5,6 @@
         <h2>欢迎使用快导航 QuickNav</h2>
         <p>一站式在线工具集合平台，为上班族提供高效的工具导航服务</p>
       </div>
-      
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🚀</div>
-          <h3>高效便捷</h3>
-          <p>无需安装，在线即用，节省本地存储空间</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🎨</div>
-          <h3>界面美观</h3>
-          <p>现代化设计，支持深色主题，视觉体验佳</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">📱</div>
-          <h3>响应式设计</h3>
-          <p>完美适配桌面端和移动端，随时随地使用</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🔒</div>
-          <h3>安全可靠</h3>
-          <p>本地处理，数据不上传服务器，保护隐私</p>
-        </div>
-      </div>
     </div>
     
     <!-- 热门工具快速访问 -->
@@ -53,56 +27,7 @@
         </router-link>
       </div>
     </div>
-    
-    <!-- 新增功能展示 -->
-    <div class="new-features">
-      <h3>✨ 最新功能</h3>
-      <div class="features-timeline">
-        <div 
-          v-for="feature in newFeatures" 
-          :key="feature.id"
-          class="timeline-item"
-        >
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <div class="feature-header">
-              <span class="feature-badge">{{ feature.badge }}</span>
-              <span class="feature-date">{{ feature.date }}</span>
-            </div>
-            <h4>{{ feature.title }}</h4>
-            <p>{{ feature.description }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 网站导航预览 -->
-    <div class="website-navigation">
-      <h3>🌐 常用网站导航</h3>
-      <p class="section-subtitle">即将推出，一站式访问常用开发和办公网站</p>
-      <div class="website-categories">
-        <div 
-          v-for="category in websiteCategories" 
-          :key="category.name"
-          class="website-category"
-        >
-          <div class="category-header">
-            <span class="category-icon">{{ category.icon }}</span>
-            <h4>{{ category.name }}</h4>
-          </div>
-          <div class="website-list">
-            <div 
-              v-for="site in category.sites" 
-              :key="site.name"
-              class="website-item"
-            >
-              <img :src="site.favicon" :alt="site.name" class="site-favicon">
-              <span>{{ site.name }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     
     <!-- 数据看板 -->
     <div class="dashboard">
@@ -340,12 +265,6 @@ export default {
           category: '技术文档'
         },
         {
-          name: 'MDN Web Docs',
-          url: 'https://developer.mozilla.org/',
-          description: 'Web开发权威技术文档',
-          category: '技术文档'
-        },
-        {
           name: '阮一峰的网络日志',
           url: 'https://www.ruanyifeng.com/blog/',
           description: '高质量的技术博客和教程',
@@ -368,6 +287,12 @@ export default {
           url: 'https://stackoverflow.com/',
           description: '程序员问答社区',
           category: '技术社区'
+        },
+        {
+          name: '天空之城',
+          url: 'https://lzmhc.top:8081',
+          description: '个人开发者',
+          category: '技术博客'
         }
       ]
     }
