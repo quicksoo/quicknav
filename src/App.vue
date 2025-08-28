@@ -100,9 +100,9 @@ export default {
       advertisements: [
         {
           id: 1,
-          title: '高效开发工具',
-          subtitle: '提升开发效率 50%',
-          link: 'https://example.com/dev-tools',
+          title: '免费大流量卡',
+          subtitle: '运营商正规 月租19/29/39免费大流量卡，包邮到家',
+          link: 'https://index.feihuang.vip/hk/short?v=36ff05f528',
           image: '',
           bgColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           textColor: '#ffffff',
@@ -115,56 +115,6 @@ export default {
           link: 'https://example.com/cloud-server',
           image: '',
           bgColor: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-          textColor: '#ffffff',
-          enabled: true
-        },
-        {
-          id: 3,
-          title: '数据可视化工具',
-          subtitle: '可视化数据处理 70%',
-          link: 'https://example.com/data-visualization',
-          image: '',
-          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
-          textColor: '#ffffff',
-          enabled: true
-        },
-        {
-          id: 4,
-          title: '图像处理工具',
-          subtitle: '处理图片、视频等 multimedia 文件',
-          link: 'https://example.com/image-processing',
-          image: '',
-          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
-          textColor: '#ffffff',
-          enabled: true
-        },
-        {
-          id: 5,
-          title: '机器学习工具',
-          subtitle: '机器学习算法实现',
-          link: 'https://example.com/machine-learning',
-          image: '',
-          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
-          textColor: '#ffffff',
-          enabled: true
-        },
-        {
-          id: 6,
-          title: '数据可视化工具',
-          subtitle: '可视化数据处理 70%',
-          link: 'https://example.com/data-visualization',
-          image: '',
-          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
-          textColor: '#ffffff',
-          enabled: true
-        },
-        {
-          id: 7,
-          title: '数据可视化工具',
-          subtitle: '可视化数据处理 70%',
-          link: 'https://example.com/data-visualization',
-          image: '',
-          bgColor: 'linear-gradient(135deg, #f9d423 0%, #ff5858 100%)',
           textColor: '#ffffff',
           enabled: true
         }
