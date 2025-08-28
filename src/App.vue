@@ -101,7 +101,7 @@ export default {
         {
           id: 1,
           title: '免费大流量卡',
-          subtitle: '运营商正规 月租19/29/39免费大流量卡，包邮到家',
+          subtitle: '运营商正规流量王卡，快递包邮到家',
           link: 'https://index.feihuang.vip/hk/short?v=36ff05f528',
           image: '',
           bgColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
