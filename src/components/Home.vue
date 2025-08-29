@@ -2,7 +2,7 @@
   <div class="home-container">
     <div class="welcome-section">
       <div class="hero">
-        <h2>欢迎使用快导航 QuickNav</h2>
+        <h2>欢迎使用快导航 QuickTools</h2>
         <p>一站式在线工具集合平台，为上班族提供高效的工具导航服务</p>
       </div>
     </div>

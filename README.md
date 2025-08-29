@@ -1,15 +1,15 @@
-# 🛠️ QuickNav - 上班族必备工具导航
+# 🛠️ QuickTools - 上班族必备工具导航
 
 > 一站式在线工具集合平台，不仅仅是编程工具，更是上班族日常工作的效率助手
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Vue 3](https://img.shields.io/badge/Vue-3.x-4FC08D?logo=vue.js)](https://vuejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?logo=vite)](https://vitejs.dev/)
-[![Last Commit](https://img.shields.io/github/last-commit/username/quicknav)](https://github.com/username/quicknav)
+[![Last Commit](https://img.shields.io/github/last-commit/username/quicktools)](https://github.com/username/quicktools)
 
 ## 📖 项目简介
 
-QuickNav 是一个集成多种常用开发与运维工具的前端导航型工具集合，旨在为上班族（特别是开发者、设计师、产品经理等技术相关岗位）提供一站式在线工具访问入口。
+QuickTools 是一个集成多种常用开发与运维工具的前端导航型工具集合，旨在为上班族（特别是开发者、设计师、产品经理等技术相关岗位）提供一站式在线工具访问入口。
 
 ### 🎯 核心理念
 - **一站式解决方案** - 整合工作中常用的各类在线工具
@@ -96,8 +96,8 @@ QuickNav 是一个集成多种常用开发与运维工具的前端导航型工�
 ### 安装依赖
 ```bash
 # 克隆项目
-git clone https://github.com/username/quicknav.git
-cd quicknav
+git clone https://github.com/username/quicktools.git
+cd quicktools
 
 # 安装依赖
 npm install
@@ -123,7 +123,7 @@ npm run preview
 ## 📁 项目结构
 
 ```
-quicknav/
+quicktools/
 ├── src/
 │   ├── components/          # 工具组件
 │   │   ├── Base64Tool.vue   # Base64编解码
@@ -225,9 +225,9 @@ quicknav/
 
 ## 📞 联系我们
 
-- **问题反馈**: [GitHub Issues](https://github.com/username/quicknav/issues)
-- **功能建议**: [GitHub Discussions](https://github.com/username/quicknav/discussions)
-- **项目主页**: [https://quicknav.example.com](https://quicknav.example.com)
+- **问题反馈**: [GitHub Issues](https://github.com/username/quicktools/issues)
+- **功能建议**: [GitHub Discussions](https://github.com/username/quicktools/discussions)
+- **项目主页**: [https://quicktools.example.com](https://quicktools.example.com)
 
 ---
 

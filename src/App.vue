@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/vue';
     <!-- 左侧固定导航栏 -->
     <aside class="sidebar">
       <div class="sidebar-header" @click="goToHome">
-        <h1 class="logo clickable">⚡ 快导航 QuickNav</h1>
+        <h1 class="logo clickable">⚡ 快导航 QuickTools</h1>
       </div>
       
       <nav class="nav-menu">
