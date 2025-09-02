@@ -1,42 +1,46 @@
 <template>
   <div id="app">
     <!-- 左侧固定导航栏 -->
-    <aside class="sidebar">
+    <aside class="sidebar" aria-label="导航菜单">
+      <!-- 固定头部 -->
       <div class="sidebar-header" @click="goToHome">
-        <h1 class="logo clickable">⚡ 快导航 QuickTools</h1>
+        <h1 class="logo clickable">⚡️ 快导航 QuickTools</h1>
       </div>
-      
-      <nav class="nav-menu">
-        <div 
-          v-for="category in categories" 
-          :key="category.name"
-          class="nav-category"
-          :class="{ active: selectedCategory === category.name }"
-          @click="selectCategory(category.name)"
-        >
-          <div class="category-item">
-            <span class="category-icon">{{ category.icon }}</span>
-            <span class="category-name">{{ category.name }}</span>
+
+      <!-- 可滚动的菜单区域 -->
+      <div class="nav-scroll-container">
+        <nav class="nav-menu">
+          <div
+            v-for="category in categories"
+            :key="category.name"
+            class="nav-category"
+            :class="{ active: selectedCategory === category.name }"
+            @click="selectCategory(category.name)"
+          >
+            <div class="category-item">
+              <span class="category-icon">{{ category.icon }}</span>
+              <span class="category-name">{{ category.name }}</span>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </aside>
-    
+
     <!-- 主内容区域 -->
     <main class="main-content">
-      <!-- 简洁的顶部栏 -->
-      <header class="top-header">
+      <!-- 顶部栏 -->
+      <header class="top-header" aria-label="页面顶部信息栏">
         <div class="header-content">
           <div class="breadcrumb">
             <span v-if="$route.path === '/' && !selectedCategory">工具分类</span>
             <span v-else-if="$route.path === '/' && selectedCategory">{{ getSelectedCategoryIcon() }} {{ selectedCategory }}</span>
             <span v-else>{{ getCurrentToolName() }}</span>
           </div>
-          
+
           <!-- 广告展示区域 -->
           <div class="ad-section" v-if="enabledAds.length > 0">
-            <div 
-              v-for="ad in enabledAds" 
+            <div
+              v-for="ad in enabledAds"
               :key="ad.id"
               class="ad-banner"
               :style="{ background: ad.bgColor, color: ad.textColor }"
@@ -53,21 +57,19 @@
           </div>
         </div>
       </header>
-      
+
       <!-- 页面内容 -->
       <div class="content-wrapper">
-        <!-- 工具页面显示 -->
         <div v-if="$route.path !== '/' || selectedCategory">
           <div v-if="selectedCategory" class="tools-page">
             <div class="page-title">
               <p>{{ getSelectedCategoryDescription() }}</p>
             </div>
-            
             <div class="tools-grid">
-              <router-link 
-                v-for="tool in getSelectedCategoryTools()" 
+              <router-link
+                v-for="tool in getSelectedCategoryTools()"
                 :key="tool.path"
-                :to="tool.path" 
+                :to="tool.path"
                 class="tool-card"
               >
                 <div class="tool-icon">{{ tool.icon }}</div>
@@ -80,8 +82,6 @@
             <router-view />
           </div>
         </div>
-        
-        <!-- 首页内容 -->
         <div v-else>
           <router-view />
         </div>
@@ -96,24 +96,22 @@ export default {
   data() {
     return {
       selectedCategory: null,
-      // 广告位配置（最多2个）
+      // 广告位配置（最多启用2个）
       advertisements: [
         {
           id: 1,
           title: '免费大流量卡',
           subtitle: '运营商正规流量王卡，快递包邮到家',
           link: 'https://index.feihuang.vip/hk/short?v=36ff05f528',
-          image: '',
           bgColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           textColor: '#ffffff',
           enabled: true
         },
         {
           id: 2,
-          title: '云服务器特惠',
-          subtitle: '新用户首年优惠 85折',
-          link: 'https://example.com/cloud-server',
-          image: '',
+          title: '阿里云服务器特惠',
+          subtitle: '新用户首年优惠85折',
+          link: 'https://www.aliyun.com/minisite/goods?userCode=knnrc7rb',
           bgColor: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
           textColor: '#ffffff',
           enabled: true
@@ -242,55 +240,51 @@ export default {
       ]
     }
   },
-  
+
   computed: {
     // 获取启用的广告（最多2个）
     enabledAds() {
-      return this.advertisements.filter(ad => ad.enabled).slice(0, 5)
+      return this.advertisements.filter(ad => ad.enabled).slice(0, 2)
     }
   },
-  
+
   methods: {
-    // Logo点击返回首页
     goToHome() {
       this.selectedCategory = null
       if (this.$route.path !== '/') {
         this.$router.push('/')
       }
     },
-    
-    // 广告点击处理
+
     openAdLink(link) {
       if (link) {
-        window.open(link, '_blank')
-        // 这里可以添加点击统计逻辑
+        window.open(link, '_blank', 'noopener,noreferrer')
         console.log('广告点击:', link)
       }
     },
-    
+
     selectCategory(categoryName) {
       this.selectedCategory = categoryName
-      // 如果不在首页，先跳转到首页
       if (this.$route.path !== '/') {
         this.$router.push('/')
       }
     },
-    
+
     getSelectedCategoryIcon() {
       const category = this.categories.find(cat => cat.name === this.selectedCategory)
       return category ? category.icon : ''
     },
-    
+
     getSelectedCategoryDescription() {
       const category = this.categories.find(cat => cat.name === this.selectedCategory)
       return category ? category.description : ''
     },
-    
+
     getSelectedCategoryTools() {
       const category = this.categories.find(cat => cat.name === this.selectedCategory)
       return category ? category.tools : []
     },
-    
+
     getCurrentToolName() {
       const toolNames = {
         '/daily-hotspot': '每日热点',
@@ -331,10 +325,9 @@ export default {
       return toolNames[this.$route.path] || '未知工具'
     }
   },
-  
+
   watch: {
     '$route'(to, from) {
-      // 当路由变化时，如果不是首页，则重置分类选择
       if (to.path !== '/') {
         this.selectedCategory = null
       }
@@ -342,13 +335,14 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 /* 全局布局 */
 #app {
   display: flex;
   height: 100vh;
   background: #fafafa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow: hidden;
 }
 
 /* 左侧固定导航栏 */
@@ -359,14 +353,21 @@ export default {
   display: flex;
   flex-direction: column;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
+  overflow: hidden; /* 禁止整体滚动，防止 header 被影响 */
 }
 
-/* 侧边栏头部 */
+/* 固定头部 - 不随菜单滚动 */
 .sidebar-header {
-  padding: 24px 20px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
   border-bottom: 1px solid #f0f0f0;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0; /* 关键：禁止压缩 */
+  background: #ffffff;
+  z-index: 10;
 }
 
 .sidebar-header:hover {
@@ -386,13 +387,44 @@ export default {
   transform: scale(1.02);
 }
 
+/* 可滚动的菜单容器 - 滚动条只出现在这里 */
+.nav-scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+  /* 自定义细滚动条 */
+  scrollbar-width: thin;
+  scrollbar-color: #c5c5c5 #f1f1f1;
+}
+
+.nav-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nav-scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.nav-scroll-container::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 3px;
+}
+
+.nav-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
 /* 导航菜单 */
 .nav-menu {
-  flex: 1;
-  padding: 16px 0;
+  display: block;
 }
 
 .nav-category {
+  height: 48px;
+  display: flex;
+  align-items: center;
   margin-bottom: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -411,8 +443,11 @@ export default {
 .category-item {
   display: flex;
   align-items: center;
-  padding: 14px 20px;
+  padding: 0 20px;
   gap: 12px;
+  color: inherit;
+  width: 100%;
+  height: 100%;
 }
 
 .category-icon {
@@ -438,27 +473,30 @@ export default {
   display: flex;
   flex-direction: column;
   background: #fafafa;
+  overflow: hidden;
 }
 
-/* 顶部栏 */
+/* 顶部栏 - 与左侧 header 对齐 */
 .top-header {
+  height: 64px;
   background: #ffffff;
   border-bottom: 1px solid #e8e8e8;
-  padding: 24px 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  flex-shrink: 0;
 }
 
 .header-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 20px;
+  flex: 1;
 }
 
 .breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-shrink: 0;
   font-size: 18px;
   font-weight: 500;
   color: #37474f;
@@ -466,9 +504,10 @@ export default {
 
 /* 广告区域样式 */
 .ad-section {
+  flex: 1;
   display: flex;
+  justify-content: flex-end;
   gap: 12px;
-  align-items: center;
 }
 
 .ad-banner {
@@ -490,7 +529,7 @@ export default {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.ad-banner:before {
+.ad-banner::before {
   content: '';
   position: absolute;
   top: 0;
@@ -548,42 +587,9 @@ export default {
   padding: 0;
 }
 
-/* 欢迎页面 */
-.welcome-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  text-align: center;
-}
-
-.welcome-content h1 {
-  font-size: 28px;
-  color: #37474f;
-  margin-bottom: 12px;
-  font-weight: 300;
-}
-
-.welcome-content p {
-  font-size: 16px;
-  color: #78909c;
-  margin: 0;
-}
-
 /* 工具页面 */
 .tools-page {
   padding: 32px;
-}
-
-.page-title {
-  margin-bottom: 32px;
-}
-
-.page-title h1 {
-  font-size: 24px;
-  color: #37474f;
-  margin-bottom: 8px;
-  font-weight: 500;
 }
 
 .page-title p {
@@ -595,8 +601,8 @@ export default {
 /* 工具网格 */
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .tool-card {
@@ -641,75 +647,97 @@ export default {
   #app {
     flex-direction: column;
   }
-  
+
   .sidebar {
     width: 100%;
     height: auto;
     border-right: none;
     border-bottom: 1px solid #e8e8e8;
   }
-  
-  .nav-menu {
+
+  .sidebar-header,
+  .top-header {
+    height: 56px;
+    padding: 0 16px;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+
+  .breadcrumb {
+    font-size: 16px;
+  }
+
+  .nav-scroll-container {
     display: flex;
     overflow-x: auto;
     padding: 8px 16px;
   }
-  
+
+  .nav-menu {
+    display: flex;
+    flex-direction: row;
+  }
+
   .nav-category {
-    margin-bottom: 0;
+    height: 40px;
+    min-width: 120px;
     margin-right: 8px;
+    margin-bottom: 0;
     flex-shrink: 0;
     border-radius: 20px;
   }
-  
+
   .nav-category.active {
-    border-right: none;
     background: #2196f3;
+    border-right: none;
+  }
+
+  .nav-category.active .category-name,
+  .nav-category.active .category-icon {
     color: white;
   }
-  
-  .nav-category.active .category-name {
-    color: white;
-  }
-  
+
   .category-item {
-    padding: 8px 16px;
+    padding: 0 16px;
     white-space: nowrap;
   }
-  
-  /* 广告区域移动端适配 */
+
+  .category-icon {
+    font-size: 16px;
+    width: 18px;
+  }
+
+  /* 顶部栏适配 */
   .header-content {
     flex-direction: column;
-    gap: 16px;
     align-items: stretch;
+    gap: 12px;
   }
-  
+
   .ad-section {
     flex-direction: column;
     gap: 8px;
+    align-items: center;
   }
-  
+
   .ad-banner {
     min-width: auto;
-    max-width: none;
+    max-width: 300px;
+    width: 100%;
     justify-content: space-between;
   }
-  
+
+  /* 内容适配 */
   .tools-page {
     padding: 20px;
   }
-  
+
   .tools-grid {
     grid-template-columns: 1fr;
     gap: 16px;
-  }
-  
-  .welcome-content h1 {
-    font-size: 24px;
-  }
-  
-  .welcome-content p {
-    font-size: 14px;
   }
 }
 </style>
