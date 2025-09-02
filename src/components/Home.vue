@@ -290,7 +290,7 @@ export default {
         },
         {
           name: '天空之城',
-          url: 'https://lzmhc.top:8081',
+          url: 'https://lzmhc.top/',
           description: '个人开发者',
           category: '技术博客'
         }
