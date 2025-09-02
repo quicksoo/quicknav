@@ -16,6 +16,10 @@
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #c5c5c5;
+  --scrollbar-thumb-hover: #a8a8a8;
+  --theme-icon-color: #1e293b; /* 明亮主题下的图标颜色 */
   
   color-scheme: light;
   color: var(--color-text-primary);
@@ -26,6 +30,30 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+/* 深色主题变量 */
+[data-theme="dark"],
+.dark-theme {
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #020617;
+  --color-bg-tertiary: #1e293b;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-border: #334155;
+  --color-border-light: #1e293b;
+  --color-accent: #60a5fa;
+  --color-accent-light: #172554;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-error: #f87171;
+  --scrollbar-track: #1e293b;
+  --scrollbar-thumb: #475569;
+  --scrollbar-thumb-hover: #64748b;
+  --theme-icon-color: #f1f5f9; /* 深色主题下的图标颜色 */
+  
+  color-scheme: dark;
 }
 
 * {

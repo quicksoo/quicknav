@@ -37,21 +37,43 @@
             <span v-else>{{ getCurrentToolName() }}</span>
           </div>
 
-          <!-- 广告展示区域 -->
-          <div class="ad-section" v-if="enabledAds.length > 0">
-            <div
-              v-for="ad in enabledAds"
-              :key="ad.id"
-              class="ad-banner"
-              :style="{ background: ad.bgColor, color: ad.textColor }"
-              @click="openAdLink(ad.link)"
-            >
-              <div class="ad-content">
-                <div class="ad-title">{{ ad.title }}</div>
-                <div class="ad-subtitle">{{ ad.subtitle }}</div>
+          <div class="right-section">
+            <!-- 广告展示区域 -->
+            <div class="ad-section" v-if="enabledAds.length > 0">
+              <div
+                v-for="ad in enabledAds"
+                :key="ad.id"
+                class="ad-banner"
+                :style="{ background: ad.bgColor, color: ad.textColor }"
+                @click="openAdLink(ad.link)"
+              >
+                <div class="ad-content">
+                  <div class="ad-title">{{ ad.title }}</div>
+                  <div class="ad-subtitle">{{ ad.subtitle }}</div>
+                </div>
+                <div class="ad-action">
+                  <span class="ad-btn">查看</span>
+                </div>
               </div>
-              <div class="ad-action">
-                <span class="ad-btn">查看</span>
+            </div>
+
+            <!-- 主题切换按钮 -->
+            <div class="theme-toggle" @click="toggleTheme" :title="isDark ? '切换到浅色模式' : '切换到深色模式'">
+              <div class="theme-icon">
+                <svg v-if="isDark" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
               </div>
             </div>
           </div>
@@ -96,6 +118,7 @@ export default {
   data() {
     return {
       selectedCategory: null,
+      isDark: false, // 添加主题状态
       // 广告位配置（最多启用2个）
       advertisements: [
         {
@@ -323,6 +346,39 @@ export default {
         '/extension-icon-generator': '扩展图标生成器'
       }
       return toolNames[this.$route.path] || '未知工具'
+    },
+
+    // 切换主题
+    toggleTheme() {
+      this.isDark = !this.isDark
+      this.applyTheme()
+      // 保存用户偏好到localStorage
+      localStorage.setItem('theme', this.isDark ? 'dark' : 'light')
+    },
+
+    // 应用主题
+    applyTheme() {
+      if (this.isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        document.documentElement.classList.add('dark-theme')
+      } else {
+        document.documentElement.removeAttribute('data-theme')
+        document.documentElement.classList.remove('dark-theme')
+      }
+    },
+
+    // 初始化主题
+    initTheme() {
+      // 从localStorage获取用户偏好，如果没有则根据系统偏好设置
+      const savedTheme = localStorage.getItem('theme')
+      if (savedTheme) {
+        this.isDark = savedTheme === 'dark'
+      } else {
+        // 检查系统主题偏好
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        this.isDark = prefersDark
+      }
+      this.applyTheme()
     }
   },
 
@@ -332,6 +388,11 @@ export default {
         this.selectedCategory = null
       }
     }
+  },
+
+  // 在组件挂载时初始化主题
+  mounted() {
+    this.initTheme()
   }
 }
 </script>
@@ -340,7 +401,7 @@ export default {
 #app {
   display: flex;
   height: 100vh;
-  background: #fafafa;
+  background: var(--color-bg-secondary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   overflow: hidden;
 }
@@ -348,8 +409,8 @@ export default {
 /* 左侧固定导航栏 */
 .sidebar {
   width: 240px;
-  background: #ffffff;
-  border-right: 1px solid #e8e8e8;
+  background: var(--color-bg-primary);
+  border-right: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
@@ -362,28 +423,28 @@ export default {
   display: flex;
   align-items: center;
   padding: 0 20px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--color-border-light);
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0; /* 关键：禁止压缩 */
-  background: #ffffff;
+  background: var(--color-bg-primary);
   z-index: 10;
 }
 
 .sidebar-header:hover {
-  background: #f8f9fa;
+  background: var(--color-bg-tertiary);
 }
 
 .logo {
   font-size: 18px;
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--color-text-primary);
   margin: 0;
   transition: all 0.2s ease;
 }
 
 .logo.clickable:hover {
-  color: #2196f3;
+  color: var(--color-accent);
   transform: scale(1.02);
 }
 
@@ -395,7 +456,7 @@ export default {
   padding: 8px 0;
   /* 自定义细滚动条 */
   scrollbar-width: thin;
-  scrollbar-color: #c5c5c5 #f1f1f1;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 .nav-scroll-container::-webkit-scrollbar {
@@ -403,17 +464,17 @@ export default {
 }
 
 .nav-scroll-container::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--scrollbar-track);
   border-radius: 3px;
 }
 
 .nav-scroll-container::-webkit-scrollbar-thumb {
-  background: #c5c5c5;
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
 .nav-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* 导航菜单 */
@@ -432,12 +493,12 @@ export default {
 }
 
 .nav-category:hover {
-  background: #f8f9fa;
+  background: var(--color-bg-tertiary);
 }
 
 .nav-category.active {
-  background: #e3f2fd;
-  border-right: 3px solid #2196f3;
+  background: var(--color-accent-light);
+  border-right: 3px solid var(--color-accent);
 }
 
 .category-item {
@@ -459,11 +520,11 @@ export default {
 .category-name {
   font-size: 14px;
   font-weight: 500;
-  color: #37474f;
+  color: var(--color-text-primary);
 }
 
 .nav-category.active .category-name {
-  color: #1976d2;
+  color: var(--color-accent);
   font-weight: 600;
 }
 
@@ -472,15 +533,15 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: #fafafa;
+  background: var(--color-bg-secondary);
   overflow: hidden;
 }
 
 /* 顶部栏 - 与左侧 header 对齐 */
 .top-header {
   height: 64px;
-  background: #ffffff;
-  border-bottom: 1px solid #e8e8e8;
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   padding: 0 24px;
@@ -491,22 +552,29 @@ export default {
 .header-content {
   display: flex;
   align-items: center;
-  gap: 20px;
-  flex: 1;
+  justify-content: space-between; /* 两端对齐 */
+  width: 100%;
 }
 
 .breadcrumb {
   flex-shrink: 0;
   font-size: 18px;
   font-weight: 500;
-  color: #37474f;
+  color: var(--color-text-primary);
+}
+
+/* 右侧区域 */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto; /* 将整个右侧区域推到最右边 */
 }
 
 /* 广告区域样式 */
 .ad-section {
-  flex: 1;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; /* 靠右对齐 */
   gap: 12px;
 }
 
@@ -580,6 +648,36 @@ export default {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* 主题切换按钮 */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: var(--color-bg-tertiary);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--color-accent);
+  transform: scale(1.1);
+}
+
+.theme-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-icon svg {
+  color: var(--theme-icon-color);
+  transition: all 0.3s ease;
+}
+
 /* 内容包装器 */
 .content-wrapper {
   flex: 1;
@@ -594,7 +692,7 @@ export default {
 
 .page-title p {
   font-size: 15px;
-  color: #78909c;
+  color: var(--color-text-secondary);
   margin: 0;
 }
 
@@ -606,8 +704,8 @@ export default {
 }
 
 .tool-card {
-  background: #ffffff;
-  border: 1px solid #e8e8e8;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 24px;
   text-decoration: none;
@@ -617,8 +715,8 @@ export default {
 }
 
 .tool-card:hover {
-  border-color: #2196f3;
-  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.1);
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
   transform: translateY(-2px);
 }
 
@@ -630,14 +728,14 @@ export default {
 
 .tool-card h3 {
   font-size: 16px;
-  color: #37474f;
+  color: var(--color-text-primary);
   margin-bottom: 8px;
   font-weight: 600;
 }
 
 .tool-card p {
   font-size: 14px;
-  color: #78909c;
+  color: var(--color-text-secondary);
   line-height: 1.5;
   margin: 0;
 }
@@ -652,7 +750,7 @@ export default {
     width: 100%;
     height: auto;
     border-right: none;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .sidebar-header,
@@ -691,7 +789,7 @@ export default {
   }
 
   .nav-category.active {
-    background: #2196f3;
+    background: var(--color-accent);
     border-right: none;
   }
 
@@ -712,22 +810,34 @@ export default {
 
   /* 顶部栏适配 */
   .header-content {
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    align-items: center;
     gap: 12px;
   }
 
+  .right-section {
+    gap: 8px;
+  }
+
   .ad-section {
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
     align-items: center;
+    overflow-x: auto;
+    max-width: 70%;
   }
 
   .ad-banner {
     min-width: auto;
-    max-width: 300px;
+    max-width: 220px;
     width: 100%;
     justify-content: space-between;
+  }
+
+  /* 主题切换按钮在移动端的样式 */
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
   }
 
   /* 内容适配 */

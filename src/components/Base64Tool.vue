@@ -203,16 +203,21 @@ export default {
 </script>
 
 <style scoped>
+.tool-description {
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+}
+
 .tool-tabs {
   display: flex;
   margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .tab-btn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-muted);
   padding: 12px 24px;
   cursor: pointer;
   border-bottom: 2px solid transparent;
@@ -221,12 +226,12 @@ export default {
 }
 
 .tab-btn:hover {
-  color: white;
+  color: var(--color-text-primary);
 }
 
 .tab-btn.active {
-  color: white;
-  border-bottom-color: #667eea;
+  color: var(--color-text-primary);
+  border-bottom-color: var(--color-accent);
 }
 
 .tab-content {
@@ -238,7 +243,7 @@ export default {
 }
 
 .result-section h4 {
-  color: white;
+  color: var(--color-text-primary);
   margin-bottom: 15px;
 }
 
@@ -252,16 +257,16 @@ export default {
 .info-section {
   margin-top: 30px;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid var(--color-border);
 }
 
 .info-section h4 {
-  color: white;
+  color: var(--color-text-primary);
   margin-bottom: 15px;
 }
 
 .info-section ul {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   line-height: 1.8;
   padding-left: 20px;
 }
@@ -271,13 +276,13 @@ export default {
 }
 
 .error-message {
-  color: #ff6b6b;
+  color: var(--color-error);
   font-size: 14px;
   margin-top: 8px;
   padding: 8px;
-  background: rgba(255, 107, 107, 0.1);
+  background: rgba(239, 68, 68, 0.1);
   border-radius: 4px;
-  border-left: 3px solid #ff6b6b;
+  border-left: 3px solid var(--color-error);
 }
 
 @media (max-width: 768px) {

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card">
       <h2>🔥 每日热点</h2>
-      <p style="color: #78909c; margin-bottom: 20px;">
+      <p class="tool-description">
         汇聚各大平台热点资讯，一键获取今日热门话题
       </p>
       
@@ -267,35 +267,16 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px;
+.tool-description {
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
 }
 
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 32px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
-
-.card h2 {
-  color: #2c3e50;
-  margin-bottom: 8px;
-  font-size: 28px;
-  font-weight: 600;
-}
-
-/* 平台选择标签 */
 .platform-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .platform-tab {
@@ -303,48 +284,46 @@ export default {
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  border: 2px solid #e9ecef;
-  border-radius: 20px;
-  background: white;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 14px;
-  color: #495057;
+  color: var(--color-text-primary);
 }
 
 .platform-tab:hover {
-  border-color: #007bff;
-  transform: translateY(-1px);
+  background: var(--color-accent-light);
+  border-color: var(--color-accent);
 }
 
 .platform-tab.active {
-  border-color: #007bff;
-  background: #007bff;
+  background: var(--color-accent);
   color: white;
+  border-color: var(--color-accent);
 }
 
 .platform-icon {
   font-size: 16px;
 }
 
-.platform-name {
-  font-weight: 500;
-}
-
-/* 加载状态 */
 .loading-container {
-  text-align: center;
-  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: var(--color-text-secondary);
 }
 
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #007bff;
+  border: 4px solid var(--color-border);
+  border-top: 4px solid var(--color-accent);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto 16px;
+  margin-bottom: 20px;
 }
 
 @keyframes spin {
@@ -352,52 +331,47 @@ export default {
   100% { transform: rotate(360deg); }
 }
 
-/* 热点内容 */
-.hotspot-content {
-  margin-top: 20px;
-}
-
 .hotspot-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid #e9ecef;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .hotspot-header h3 {
-  color: #2c3e50;
-  font-size: 20px;
-  font-weight: 600;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 .update-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
 }
 
 .update-time {
-  color: #6c757d;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 
 .refresh-btn {
-  padding: 6px 12px;
-  border: 1px solid #007bff;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 8px 16px;
   border-radius: 6px;
-  background: white;
-  color: #007bff;
   cursor: pointer;
-  font-size: 14px;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.refresh-btn:hover {
-  background: #007bff;
-  color: white;
+.refresh-btn:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
 }
 
 .refresh-btn:disabled {
@@ -405,41 +379,44 @@ export default {
   cursor: not-allowed;
 }
 
-/* 热点列表 */
 .hotspot-list {
-  space-y: 12px;
+  margin-bottom: 20px;
 }
 
 .hotspot-item {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 16px;
-  border: 1px solid #e9ecef;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
+  margin-bottom: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-bottom: 12px;
 }
 
 .hotspot-item:hover {
-  border-color: #007bff;
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
-  transform: translateY(-1px);
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
 }
 
 .item-rank {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
+  width: 24px;
+  height: 24px;
+  background: var(--color-bg-tertiary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 12px;
   font-weight: 600;
-  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.hotspot-item:hover .item-rank {
+  background: var(--color-accent);
+  color: white;
 }
 
 .item-content {
@@ -447,133 +424,118 @@ export default {
 }
 
 .item-title {
-  color: #2c3e50;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
   font-size: 16px;
   font-weight: 500;
-  margin-bottom: 8px;
-  line-height: 1.4;
 }
 
 .item-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  gap: 15px;
   margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.heat-value,
+.category,
+.time {
+  font-size: 12px;
+  color: var(--color-text-muted);
 }
 
 .heat-value {
-  color: #dc3545;
-  font-size: 12px;
+  color: var(--color-warning);
   font-weight: 500;
 }
 
-.category {
-  color: #007bff;
-  font-size: 12px;
-  background: #e7f3ff;
-  padding: 2px 8px;
-  border-radius: 12px;
-}
-
-.time {
-  color: #6c757d;
-  font-size: 12px;
-}
-
 .item-summary {
-  color: #6c757d;
+  color: var(--color-text-secondary);
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.5;
   margin: 0;
 }
 
 .item-arrow {
-  flex-shrink: 0;
-  color: #6c757d;
+  color: var(--color-text-muted);
   font-size: 18px;
-  align-self: center;
+  transition: all 0.2s ease;
 }
 
-/* 数据来源 */
+.hotspot-item:hover .item-arrow {
+  color: var(--color-accent);
+  transform: translateX(4px);
+}
+
 .data-source {
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #e9ecef;
+  padding: 15px;
+  background: var(--color-bg-tertiary);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
 }
 
 .source-note {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #6c757d;
-  font-size: 12px;
-  margin: 0;
+  flex-wrap: wrap;
 }
 
 .source-icon {
-  color: #007bff;
+  font-size: 16px;
 }
 
 .disclaimer {
-  color: #adb5bd;
+  color: var(--color-text-muted);
+  font-size: 12px;
 }
 
-/* 功能介绍 */
 .features-section {
-  margin-top: 32px;
-  padding: 24px;
-  background: #f8f9fa;
-  border-radius: 8px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
 }
 
 .features-section h4 {
-  color: #2c3e50;
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 20px;
 }
 
 .feature-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
+  gap: 15px;
 }
 
 .feature-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: #495057;
-  font-size: 14px;
+  gap: 10px;
+  padding: 12px;
+  background: var(--color-bg-secondary);
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
 }
 
 .feature-icon {
-  color: #007bff;
-  font-size: 16px;
+  font-size: 20px;
 }
 
-/* 响应式设计 */
+.feature-item span {
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
 @media (max-width: 768px) {
-  .container {
-    padding: 16px;
-  }
-  
-  .card {
-    padding: 20px;
-  }
-  
   .platform-tabs {
     flex-direction: column;
-    gap: 8px;
-  }
-  
-  .platform-tab {
-    justify-content: center;
   }
   
   .hotspot-header {
     flex-direction: column;
-    gap: 12px;
     align-items: flex-start;
   }
   
@@ -582,34 +544,8 @@ export default {
     justify-content: space-between;
   }
   
-  .hotspot-item {
-    gap: 12px;
-  }
-  
-  .item-rank {
-    width: 28px;
-    height: 28px;
-    font-size: 12px;
-  }
-  
-  .item-title {
-    font-size: 15px;
-  }
-  
   .feature-list {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .item-meta {
-    flex-direction: column;
-    gap: 6px;
-  }
-  
-  .platform-tab {
-    font-size: 13px;
-    padding: 8px 12px;
   }
 }
 </style>

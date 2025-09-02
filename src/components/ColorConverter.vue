@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card">
       <h2>🎨 颜色转换器</h2>
-      <p style="color: #78909c; margin-bottom: 20px;">
+      <p class="tool-description">
         在线颜色格式转换工具，支持HEX、RGB、HSL等格式互转
       </p>
       
@@ -425,38 +425,42 @@ export default {
 </script>
 
 <style scoped>
+.tool-description {
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+}
+
 .color-picker-section {
   display: flex;
-  gap: 20px;
-  margin-bottom: 30px;
+  justify-content: space-between;
   align-items: center;
+  margin-bottom: 30px;
   flex-wrap: wrap;
+  gap: 20px;
 }
 
 .color-display {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 15px;
 }
 
 .color-preview {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 8px;
-  border: 2px solid #e8e8e8;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--color-border);
 }
 
 .color-info h4 {
-  margin: 0 0 4px 0;
-  color: #37474f;
-  font-size: 16px;
+  color: var(--color-text-primary);
+  margin-bottom: 5px;
 }
 
 .color-info p {
-  margin: 0;
-  color: #78909c;
+  color: var(--color-text-secondary);
   font-family: monospace;
+  margin: 0;
 }
 
 .picker-controls {
@@ -465,16 +469,25 @@ export default {
   gap: 8px;
 }
 
+.picker-controls label {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
 .color-picker {
   width: 60px;
   height: 40px;
-  border: none;
-  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
   cursor: pointer;
 }
 
 .conversion-section {
-  margin-bottom: 40px;
+  background: var(--color-bg-secondary);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border: 1px solid var(--color-border);
 }
 
 .format-group {
@@ -484,240 +497,273 @@ export default {
 .format-group label {
   display: block;
   margin-bottom: 8px;
-  color: #37474f;
+  color: var(--color-text-primary);
   font-weight: 500;
 }
 
 .input-with-copy {
   display: flex;
-  gap: 8px;
-  align-items: center;
+  gap: 10px;
 }
 
 .color-input {
   flex: 1;
-  padding: 10px 12px;
-  border: 1px solid #e8e8e8;
+  padding: 12px;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-family: monospace;
 }
 
-.color-input.readonly {
-  background: #f8f9fa;
-  color: #666;
+.color-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.rgb-inputs, .hsl-inputs {
+.color-input.readonly {
+  background: var(--color-bg-tertiary);
+}
+
+.rgb-inputs,
+.hsl-inputs {
   display: flex;
-  gap: 12px;
-  align-items: center;
+  gap: 10px;
+  align-items: flex-end;
   flex-wrap: wrap;
 }
 
-.rgb-input-group, .hsl-input-group {
+.rgb-input-group,
+.hsl-input-group {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.rgb-input-group label, .hsl-input-group label {
-  margin: 0;
-  font-size: 14px;
-  min-width: 15px;
+.rgb-input-group label,
+.hsl-input-group label {
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.rgb-input, .hsl-input {
-  width: 60px;
-  padding: 6px 8px;
-  border: 1px solid #e8e8e8;
+.rgb-input,
+.hsl-input {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
-  text-align: center;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
-.copy-btn {
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.copy-btn:hover {
-  background: #e2e8f0;
+.rgb-input:focus,
+.hsl-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
 }
 
 .format-result {
   margin-top: 8px;
-  padding: 8px 12px;
-  background: #f8f9fa;
+  padding: 8px;
+  background: var(--color-bg-tertiary);
   border-radius: 4px;
+  color: var(--color-text-secondary);
   font-family: monospace;
-  color: #37474f;
+  font-size: 14px;
+}
+
+.copy-btn {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0 15px;
+  height: 40px;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
 }
 
 .palette-section {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .palette-section h4 {
-  color: #37474f;
-  margin-bottom: 16px;
+  color: var(--color-text-primary);
+  margin-bottom: 20px;
 }
 
 .color-palette {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 12px;
+  gap: 15px;
 }
 
 .palette-item {
-  text-align: center;
-  cursor: pointer;
-  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .palette-item:hover {
-  background: #f8f9fa;
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
 }
 
 .palette-color {
-  width: 100%;
-  height: 40px;
-  border-radius: 6px;
-  border: 1px solid #e8e8e8;
-  margin-bottom: 8px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
 }
 
 .palette-name {
-  display: block;
-  font-size: 12px;
-  color: #37474f;
-  margin-bottom: 2px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .palette-hex {
-  display: block;
-  font-size: 11px;
-  color: #78909c;
+  color: var(--color-text-muted);
   font-family: monospace;
+  font-size: 12px;
 }
 
 .gradient-section {
-  margin-bottom: 40px;
+  background: var(--color-bg-secondary);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
 }
 
 .gradient-section h4 {
-  color: #37474f;
-  margin-bottom: 16px;
+  color: var(--color-text-primary);
+  margin-bottom: 20px;
 }
 
 .gradient-controls {
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .gradient-colors {
   display: flex;
   gap: 20px;
-  margin-bottom: 16px;
   flex-wrap: wrap;
 }
 
 .gradient-color-input {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .gradient-color-input label {
+  color: var(--color-text-primary);
+  font-weight: 500;
   font-size: 14px;
-  color: #37474f;
-}
-
-.gradient-color-input input {
-  width: 60px;
-  height: 40px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
 }
 
 .gradient-direction {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+}
+
+.gradient-direction label {
+  color: var(--color-text-primary);
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .gradient-direction select {
   padding: 8px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 .gradient-preview {
-  height: 60px;
+  height: 100px;
   border-radius: 8px;
-  border: 1px solid #e8e8e8;
-  margin-bottom: 16px;
+  border: 1px solid var(--color-border);
+}
+
+.gradient-code {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .gradient-code label {
-  display: block;
-  margin-bottom: 8px;
-  color: #37474f;
+  color: var(--color-text-primary);
   font-weight: 500;
 }
 
 .gradient-textarea {
   flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #e8e8e8;
+  padding: 12px;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-family: monospace;
-  resize: none;
-  background: #f8f9fa;
+  font-size: 14px;
+  resize: vertical;
 }
 
 .info-section {
-  margin-top: 40px;
+  margin-top: 30px;
   padding-top: 20px;
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid var(--color-border);
 }
 
 .info-section h4 {
-  color: #37474f;
-  margin-bottom: 16px;
+  color: var(--color-text-primary);
+  margin-bottom: 20px;
 }
 
 .format-info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .format-item {
-  background: #f8f9fa;
-  padding: 16px;
+  background: var(--color-bg-primary);
+  padding: 20px;
   border-radius: 8px;
+  border: 1px solid var(--color-border);
 }
 
 .format-item h5 {
-  color: #37474f;
-  margin: 0 0 8px 0;
-  font-size: 14px;
+  color: var(--color-text-primary);
+  margin-bottom: 10px;
 }
 
 .format-item p {
-  color: #78909c;
-  margin: 4px 0;
-  font-size: 13px;
-  font-family: monospace;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 5px;
 }
 
 @media (max-width: 768px) {
@@ -726,17 +772,18 @@ export default {
     align-items: flex-start;
   }
   
-  .rgb-inputs, .hsl-inputs {
+  .rgb-inputs,
+  .hsl-inputs {
     flex-direction: column;
-    align-items: flex-start;
+  }
+  
+  .rgb-input,
+  .hsl-input {
+    width: 100%;
   }
   
   .gradient-colors {
     flex-direction: column;
-  }
-  
-  .format-info {
-    grid-template-columns: 1fr;
   }
   
   .color-palette {

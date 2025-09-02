@@ -3,7 +3,7 @@
     <div class="welcome-section">
       <div class="hero">
         <h2>欢迎使用快导航 QuickTools</h2>
-        <p>一站式在线工具集合平台，为上班族提供高效的工具导航服务</p>
+        <p>一站式在线工具集合平台，提供高效的工具导航服务</p>
       </div>
     </div>
     
@@ -25,95 +25,6 @@
           </div>
           <div class="tool-arrow">→</div>
         </router-link>
-      </div>
-    </div>
-
-    
-    <!-- 数据看板 -->
-    <div class="dashboard">
-      <h3>📊 使用数据</h3>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value">{{ totalTools }}</div>
-          <div class="stat-label">工具总数</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">{{ totalCategories }}</div>
-          <div class="stat-label">工具分类</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">100%</div>
-          <div class="stat-label">免费使用</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">24/7</div>
-          <div class="stat-label">在线服务</div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="tools-overview">
-      <h3>工具概览</h3>
-      <div class="tools-stats">
-        <div class="stat-item">
-          <div class="stat-number">{{ totalTools }}</div>
-          <div class="stat-label">实用工具</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">{{ totalCategories }}</div>
-          <div class="stat-label">工具分类</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">100%</div>
-          <div class="stat-label">免费使用</div>
-        </div>
-      </div>
-      
-      <div class="quick-start">
-        <h4>快速开始</h4>
-        <p>选择左侧工具分类，开始使用各种编程工具：</p>
-        <ul>
-          <li><strong>文本处理工具</strong> - 富文本编辑、JSON处理、Base64编解码</li>
-          <li><strong>生成器工具</strong> - UUID生成器，支持批量生成</li>
-          <li><strong>加密解密</strong> - MD5加密，支持文本和文件</li>
-        </ul>
-      </div>
-    </div>
-    
-    <div class="usage-tips">
-      <h3>使用技巧</h3>
-      <div class="tips-list">
-        <div class="tip-item">
-          <div class="tip-icon">💡</div>
-          <div class="tip-content">
-            <h4>批量处理</h4>
-            <p>大部分工具支持批量处理，提高工作效率</p>
-          </div>
-        </div>
-        
-        <div class="tip-item">
-          <div class="tip-icon">📋</div>
-          <div class="tip-content">
-            <h4>一键复制</h4>
-            <p>处理结果支持一键复制到剪贴板</p>
-          </div>
-        </div>
-        
-        <div class="tip-item">
-          <div class="tip-icon">💾</div>
-          <div class="tip-content">
-            <h4>导出文件</h4>
-            <p>支持将处理结果导出为文件保存</p>
-          </div>
-        </div>
-        
-        <div class="tip-item">
-          <div class="tip-icon">🔄</div>
-          <div class="tip-content">
-            <h4>实时处理</h4>
-            <p>输入内容实时处理，即时查看结果</p>
-          </div>
-        </div>
       </div>
     </div>
     
@@ -211,50 +122,7 @@ export default {
           description: '新增正则表达式测试、文本对比等实用工具'
         }
       ],
-      
-      // 网站导航分类数据
-      websiteCategories: [
-        {
-          name: '开发工具',
-          icon: '💻',
-          sites: [
-            { name: 'GitHub', favicon: 'https://github.com/favicon.ico' },
-            { name: 'Stack Overflow', favicon: 'https://stackoverflow.com/favicon.ico' },
-            { name: 'MDN', favicon: 'https://developer.mozilla.org/favicon.ico' },
-            { name: 'CodePen', favicon: 'https://codepen.io/favicon.ico' }
-          ]
-        },
-        {
-          name: '设计资源',
-          icon: '🎨',
-          sites: [
-            { name: 'Dribbble', favicon: 'https://dribbble.com/favicon.ico' },
-            { name: 'Behance', favicon: 'https://behance.net/favicon.ico' },
-            { name: 'Unsplash', favicon: 'https://unsplash.com/favicon.ico' },
-            { name: 'Figma', favicon: 'https://figma.com/favicon.ico' }
-          ]
-        },
-        {
-          name: '学习平台',
-          icon: '📚',
-          sites: [
-            { name: '慕课网', favicon: '/favicon.ico' },
-            { name: '极客时间', favicon: '/favicon.ico' },
-            { name: 'Coursera', favicon: 'https://coursera.org/favicon.ico' },
-            { name: 'Udemy', favicon: 'https://udemy.com/favicon.ico' }
-          ]
-        },
-        {
-          name: '效率工具',
-          icon: '⚙️',
-          sites: [
-            { name: '石墨文档', favicon: '/favicon.ico' },
-            { name: 'Notion', favicon: 'https://notion.so/favicon.ico' },
-            { name: 'Trello', favicon: 'https://trello.com/favicon.ico' },
-            { name: 'Slack', favicon: 'https://slack.com/favicon.ico' }
-          ]
-        }
-      ],
+    
       
       // 友情链接数据
       friendlyLinks: [
@@ -328,7 +196,7 @@ export default {
   text-align: center;
   margin-bottom: 50px;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #1d4ed8 100%);
   border-radius: 16px;
   color: white;
 }
@@ -355,11 +223,11 @@ export default {
 }
 
 .feature-card {
-  background: white;
+  background: var(--color-bg-primary);
   border-radius: 12px;
   padding: 30px 24px;
   text-align: center;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
@@ -367,7 +235,7 @@ export default {
 .feature-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
-  border-color: #3b82f6;
+  border-color: var(--color-accent);
 }
 
 .feature-icon {
@@ -376,37 +244,37 @@ export default {
 }
 
 .feature-card h3 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 12px;
   font-size: 1.2rem;
   font-weight: 600;
 }
 
 .feature-card p {
-  color: #64748b;
+  color: var(--color-text-muted);
   line-height: 1.5;
   font-size: 14px;
 }
 
 /* 热门工具区域 */
 .popular-tools {
-  background: white;
+  background: var(--color-bg-primary);
   border-radius: 12px;
   padding: 32px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
 }
 
 .popular-tools h3 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 8px;
   font-size: 1.5rem;
   font-weight: 600;
 }
 
 .section-subtitle {
-  color: #64748b;
+  color: var(--color-text-muted);
   margin-bottom: 24px;
   font-size: 14px;
   text-align: center;
@@ -423,16 +291,16 @@ export default {
   align-items: center;
   gap: 16px;
   padding: 16px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   text-decoration: none;
   color: inherit;
   transition: all 0.2s ease;
-  background: #fafbfc;
+  background: var(--color-bg-secondary);
 }
 
 .popular-tool-card:hover {
-  border-color: #3b82f6;
+  border-color: var(--color-accent);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
   transform: translateY(-1px);
 }
@@ -455,41 +323,41 @@ export default {
 }
 
 .tool-info h4 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 4px;
   font-size: 1rem;
   font-weight: 600;
 }
 
 .tool-info p {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 14px;
   margin: 0;
 }
 
 .tool-arrow {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 1.2rem;
   transition: all 0.2s ease;
 }
 
 .popular-tool-card:hover .tool-arrow {
-  color: #3b82f6;
+  color: var(--color-accent);
   transform: translateX(4px);
 }
 
 /* 新增功能区域 */
 .new-features {
-  background: white;
+  background: var(--color-bg-primary);
   border-radius: 12px;
   padding: 32px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
 }
 
 .new-features h3 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 24px;
   font-size: 1.5rem;
   font-weight: 600;
@@ -508,7 +376,7 @@ export default {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, #3b82f6, #10b981);
+  background: linear-gradient(180deg, var(--color-accent), #10b981);
 }
 
 .timeline-item {
@@ -528,17 +396,17 @@ export default {
   top: 4px;
   width: 16px;
   height: 16px;
-  background: #3b82f6;
+  background: var(--color-accent);
   border-radius: 50%;
-  border: 3px solid white;
-  box-shadow: 0 0 0 2px #3b82f6;
+  border: 3px solid var(--color-bg-primary);
+  box-shadow: 0 0 0 2px var(--color-accent);
 }
 
 .timeline-content {
-  background: #f8fafc;
+  background: var(--color-bg-secondary);
   padding: 16px;
   border-radius: 8px;
-  border-left: 3px solid #3b82f6;
+  border-left: 3px solid var(--color-accent);
 }
 
 .feature-header {
@@ -549,7 +417,7 @@ export default {
 }
 
 .feature-badge {
-  background: linear-gradient(135deg, #3b82f6, #10b981);
+  background: linear-gradient(135deg, var(--color-accent), #10b981);
   color: white;
   padding: 2px 8px;
   border-radius: 12px;
@@ -558,19 +426,19 @@ export default {
 }
 
 .feature-date {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 12px;
 }
 
 .timeline-content h4 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 8px;
   font-size: 1rem;
   font-weight: 600;
 }
 
 .timeline-content p {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 14px;
   line-height: 1.5;
   margin: 0;
@@ -578,16 +446,16 @@ export default {
 
 /* 网站导航区域 */
 .website-navigation {
-  background: white;
+  background: var(--color-bg-primary);
   border-radius: 12px;
   padding: 32px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
 }
 
 .website-navigation h3 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 8px;
   font-size: 1.5rem;
   font-weight: 600;
@@ -601,8 +469,8 @@ export default {
 }
 
 .website-category {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 20px;
 }
@@ -619,7 +487,7 @@ export default {
 }
 
 .category-header h4 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   font-size: 1rem;
   font-weight: 600;
   margin: 0;
@@ -635,16 +503,16 @@ export default {
   align-items: center;
   gap: 8px;
   padding: 8px;
-  background: white;
+  background: var(--color-bg-primary);
   border-radius: 6px;
   font-size: 14px;
-  color: #475569;
+  color: var(--color-text-secondary);
   transition: all 0.2s ease;
 }
 
 .website-item:hover {
-  background: #e2e8f0;
-  color: #1e293b;
+  background: var(--color-border-light);
+  color: var(--color-text-primary);
 }
 
 .site-favicon {
@@ -655,16 +523,16 @@ export default {
 
 /* 数据看板 */
 .dashboard {
-  background: white;
+  background: var(--color-bg-primary);
   border-radius: 12px;
   padding: 32px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
 }
 
 .dashboard h3 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 24px;
   font-size: 1.5rem;
   font-weight: 600;
@@ -705,17 +573,17 @@ export default {
 
 .tools-overview,
 .usage-tips {
-  background: white;
+  background: var(--color-bg-primary);
   border-radius: 12px;
   padding: 32px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
 }
 
 .tools-overview h3,
 .usage-tips h3 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 24px;
   font-size: 1.5rem;
   text-align: center;
@@ -737,36 +605,36 @@ export default {
 .stat-number {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #3b82f6;
+  color: var(--color-accent);
   margin-bottom: 8px;
 }
 
 .stat-label {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 14px;
   font-weight: 500;
 }
 
 .quick-start {
   padding-top: 24px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--color-border);
 }
 
 .quick-start h4 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 16px;
   font-size: 1.2rem;
   font-weight: 600;
 }
 
 .quick-start p {
-  color: #475569;
+  color: var(--color-text-secondary);
   margin-bottom: 16px;
   line-height: 1.6;
 }
 
 .quick-start ul {
-  color: #475569;
+  color: var(--color-text-secondary);
   padding-left: 20px;
   line-height: 1.8;
 }
@@ -776,7 +644,7 @@ export default {
 }
 
 .quick-start strong {
-  color: #1e293b;
+  color: var(--color-text-primary);
 }
 
 .tips-list {
@@ -790,9 +658,9 @@ export default {
   align-items: flex-start;
   gap: 16px;
   padding: 20px;
-  background: #f8fafc;
+  background: var(--color-bg-secondary);
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
 }
 
 .tip-icon {
@@ -801,14 +669,14 @@ export default {
 }
 
 .tip-content h4 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 8px;
   font-size: 1rem;
   font-weight: 600;
 }
 
 .tip-content p {
-  color: #64748b;
+  color: var(--color-text-muted);
   line-height: 1.5;
   font-size: 14px;
   margin: 0;
@@ -900,16 +768,16 @@ export default {
 
 /* 友情链接样式 */
 .friendly-links {
-  background: white;
+  background: var(--color-bg-primary);
   border-radius: 12px;
   padding: 32px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
 }
 
 .friendly-links h3 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   margin-bottom: 8px;
   font-size: 1.5rem;
   text-align: center;
@@ -927,15 +795,15 @@ export default {
   display: block;
   padding: 20px;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border);
   transition: all 0.3s ease;
-  background: #f8fafc;
+  background: var(--color-bg-secondary);
 }
 
 .link-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  border-color: #3b82f6;
+  border-color: var(--color-accent);
 }
 
 .link-header {
@@ -946,14 +814,14 @@ export default {
 }
 
 .link-header h4 {
-  color: #1e293b;
+  color: var(--color-text-primary);
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0;
 }
 
 .link-category {
-  background: linear-gradient(135deg, #3b82f6, #10b981);
+  background: linear-gradient(135deg, var(--color-accent), #10b981);
   color: white;
   font-size: 12px;
   padding: 2px 8px;
@@ -962,7 +830,7 @@ export default {
 }
 
 .link-description {
-  color: #64748b;
+  color: var(--color-text-muted);
   line-height: 1.5;
   font-size: 14px;
   margin: 0;
