@@ -1,6 +1,6 @@
 # 🛠️ QuickTools - 上班族必备工具导航
 
-> 一站式在线工具集合平台，不仅仅是编程工具，更是上班族日常工作的效率助手
+> 一站式在线工具集合平台，日常工作的效率助手
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Vue 3](https://img.shields.io/badge/Vue-3.x-4FC08D?logo=vue.js)](https://vuejs.org/)
