@@ -1,4 +1,5 @@
 <template>
+  <Analytics />
   <div id="app">
     <!-- 左侧固定导航栏 -->
     <aside class="sidebar" aria-label="导航菜单">
@@ -111,6 +112,9 @@
     </main>
   </div>
 </template>
+<script setup>
+import { Analytics } from '@vercel/analytics/vue';
+</script>
 
 <script>
 export default {
