@@ -35,6 +35,15 @@ import FormatConverter from './components/FormatConverter.vue'
 import UnitConverter from './components/UnitConverter.vue'
 import Calculator from './components/Calculator.vue'
 import CronGenerator from './components/CronGenerator.vue'
+import SnowflakeIdGenerator from './components/SnowflakeIdGenerator.vue'
+
+// 新增格式化工具组件
+import JsonFormatter from './components/JsonFormatter.vue'
+import CssFormatter from './components/CssFormatter.vue'
+import SqlFormatter from './components/SqlFormatter.vue'
+import MarkdownEditor from './components/MarkdownEditor.vue'
+import ApiTester from './components/ApiTester.vue'
+import ExtensionIconGenerator from './components/ExtensionIconGenerator.vue'
 
 // 路由配置
 const routes = [
@@ -69,6 +78,15 @@ const routes = [
   { path: '/unit-converter', component: UnitConverter },
   { path: '/calculator', component: Calculator },
   { path: '/cron-generator', component: CronGenerator },
+  { path: '/snowflake-id', component: SnowflakeIdGenerator },
+  
+  // 新增格式化工具路由
+  { path: '/json-formatter', component: JsonFormatter },
+  { path: '/css-formatter', component: CssFormatter },
+  { path: '/sql-formatter', component: SqlFormatter },
+  { path: '/markdown-editor', component: MarkdownEditor },
+  { path: '/api-tester', component: ApiTester },
+  { path: '/extension-icon-generator', component: ExtensionIconGenerator },
 ]
 
 const router = createRouter({

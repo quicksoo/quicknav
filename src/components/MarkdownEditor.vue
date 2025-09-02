@@ -158,7 +158,7 @@ export default {
       let html = markdown
       
       // 代码块
-      html = html.replace(/```(\\w+)?\\n([\\s\\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
+      html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
       html = html.replace(/`([^`]+)`/g, '<code>$1</code>')
       
       // 标题
@@ -167,21 +167,21 @@ export default {
       html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>')
       
       // 强调
-      html = html.replace(/\\*\\*([^*]+)\\*\\*/g, '<strong>$1</strong>')
-      html = html.replace(/\\*([^*]+)\\*/g, '<em>$1</em>')
+      html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>')
       html = html.replace(/~~([^~]+)~~/g, '<del>$1</del>')
       
       // 链接和图片
-      html = html.replace(/!\\[([^\\]]*)\\]\\(([^)]+)\\)/g, '<img src="$2" alt="$1">')
-      html = html.replace(/\\[([^\\]]*)\\]\\(([^)]+)\\)/g, '<a href="$2" target="_blank">$1</a>')
+      html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
+      html = html.replace(/\[([^\]]*)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
       
       // 列表
-      html = html.replace(/^\\s*[-*+]\\s+(.+)$/gm, '<li>$1</li>')
-      html = html.replace(/^\\s*\\d+\\.\\s+(.+)$/gm, '<li>$1</li>')
-      html = html.replace(/(<li>.*<\\/li>)/s, '<ul>$1</ul>')
+      html = html.replace(/^\s*[-*+]\s+(.+)$/gm, '<li>$1</li>')
+      html = html.replace(/^\s*\d+\.\s+(.+)$/gm, '<li>$1</li>')
+      html = html.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>')
       
       // 引用
-      html = html.replace(/^>\\s*(.+)$/gm, '<blockquote>$1</blockquote>')
+      html = html.replace(/^>\s*(.+)$/gm, '<blockquote>$1</blockquote>')
       
       // 水平线
       html = html.replace(/^---$/gm, '<hr>')
@@ -190,7 +190,7 @@ export default {
       html = html.replace(/^(?!<[h|u|o|b|p])(.+)$/gm, '<p>$1</p>')
       
       // 换行
-      html = html.replace(/\\n/g, '<br>')
+      html = html.replace(/\n/g, '<br>')
       
       return html
     },
@@ -227,7 +227,7 @@ export default {
     insertLinePrefix(prefix) {
       const textarea = this.$refs.mdEditor
       const start = textarea.selectionStart
-      const lineStart = this.markdownText.lastIndexOf('\\n', start - 1) + 1
+      const lineStart = this.markdownText.lastIndexOf('\n', start - 1) + 1
       
       this.markdownText = this.markdownText.substring(0, lineStart) + prefix + this.markdownText.substring(lineStart)
       
@@ -246,16 +246,16 @@ export default {
     },
     
     insertTable() {
-      const table = `\\n| 列1 | 列2 | 列3 |\\n|-----|-----|-----|\\n| 行1 | 数据 | 数据 |\\n| 行2 | 数据 | 数据 |\\n`
+      const table = `\n| 列1 | 列2 | 列3 |\n|-----|-----|-----|\n| 行1 | 数据 | 数据 |\n| 行2 | 数据 | 数据 |\n`
       this.insertText(table)
     },
     
     insertCodeBlock() {
-      this.insertText('\\n```javascript\\n', '\\n// 你的代码\\nconsole.log("Hello World");\\n```\\n')
+      this.insertText('\n```javascript\n', '\n// 你的代码\nconsole.log("Hello World");\n```\n')
     },
     
     insertHr() {
-      this.insertText('\\n---\\n')
+      this.insertText('\n---\n')
     },
     
     loadSample() {
@@ -402,11 +402,11 @@ ${this.htmlContent}
     },
     
     getLineCount(text) {
-      return text ? text.split('\\n').length : 0
+      return text ? text.split('\n').length : 0
     },
     
     getWordCount(text) {
-      return text ? text.trim().split(/\\s+/).filter(word => word).length : 0
+      return text ? text.trim().split(/\s+/).filter(word => word).length : 0
     },
     
     showToast(message) {

@@ -246,11 +246,11 @@ export default {
       }
       
       // 检查基本SQL语句格式
-      const hasSelectFrom = /SELECT.*FROM/s.test(sql)
-      const hasInsertInto = /INSERT\s+INTO/s.test(sql)
-      const hasUpdate = /UPDATE.*SET/s.test(sql)
-      const hasDeleteFrom = /DELETE\s+FROM/s.test(sql)
-      const hasCreateTable = /CREATE\s+TABLE/s.test(sql)
+      const hasSelectFrom = /SELECT[\s\S]*FROM/.test(sql)
+      const hasInsertInto = /INSERT\s+INTO/.test(sql)
+      const hasUpdate = /UPDATE[\s\S]*SET/.test(sql)
+      const hasDeleteFrom = /DELETE\s+FROM/.test(sql)
+      const hasCreateTable = /CREATE\s+TABLE/.test(sql)
       
       if (!hasSelectFrom && !hasInsertInto && !hasUpdate && !hasDeleteFrom && !hasCreateTable) {
         errors.push('未识别的SQL语句类型')

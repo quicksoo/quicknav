@@ -1,8 +1,4 @@
-<script setup>
-import { Analytics } from '@vercel/analytics/vue';
-</script>
 <template>
-   <Analytics />
   <div id="app">
     <!-- 左侧固定导航栏 -->
     <aside class="sidebar">
@@ -153,6 +149,7 @@ export default {
           description: '各种数据和代码生成工具，快速生成所需内容',
           tools: [
             { path: '/uuid-tool', name: 'UUID生成器', icon: '🆔', description: '在线UUID/GUID生成工具，支持多种版本和批量生成' },
+            { path: '/snowflake-id', name: '雪花ID生成器', icon: '❄️', description: '基于Twitter Snowflake算法的分布式ID生成器' },
             { path: '/password-generator', name: '密码生成器', icon: '🔐', description: '生成安全可靠的随机密码，支持多种字符集和规则' },
             { path: '/qr-generator', name: '二维码生成器', icon: '📱', description: '在线生成二维码，支持文本、链接、WiFi配置等多种类型' },
             { path: '/meta-generator', name: 'Meta标签生成', icon: '🏷️', description: 'HTML Meta标签生成器，优化SEO和社交媒体分享' },
@@ -225,7 +222,13 @@ export default {
           tools: [
             { path: '/html-preview', name: 'HTML代码预览', icon: '🌐', description: 'HTML代码在线预览和调试工具' },
             { path: '/css-generator', name: 'CSS样式生成器', icon: '🎨', description: 'CSS样式代码生成器，支持各种视觉效果' },
-            { path: '/hello-world', name: 'Hello World', icon: '👋', description: '各种编程语言的Hello World代码示例' }
+            { path: '/hello-world', name: 'Hello World', icon: '👋', description: '各种编程语言的Hello World代码示例' },
+            { path: '/css-formatter', name: 'CSS格式化工具', icon: '🎨', description: 'CSS代码美化、压缩、验证和分析工具' },
+            { path: '/json-formatter', name: 'JSON格式化工具', icon: '🔧', description: 'JSON格式化、压缩、验证和生成工具' },
+            { path: '/sql-formatter', name: 'SQL格式化工具', icon: '🗃️', description: 'SQL代码格式化、压缩、验证和美化工具' },
+            { path: '/markdown-editor', name: 'Markdown编辑器', icon: '📝', description: '在线Markdown编辑器，支持实时预览、语法高亮和常用工具' },
+            { path: '/api-tester', name: 'API测试工具', icon: '🌐', description: 'HTTP API接口测试工具，支持GET、POST等方法' },
+            { path: '/extension-icon-generator', name: '扩展图标生成器', icon: '🔌', description: '一键生成Chrome浏览器扩展所需的多种尺寸图标' }
           ]
         },
         {
@@ -307,6 +310,7 @@ export default {
         '/color-converter': '颜色转换器',
         '/password-generator': '密码生成器',
         '/qr-generator': '二维码生成器',
+        '/snowflake-id': '雪花ID生成器',
         '/text-diff': '文本差异对比',
         '/image-base64': '图片Base64转换',
         '/ip-query': 'IP地址查询',
@@ -316,7 +320,13 @@ export default {
         '/calculator': '多功能计算器',
         '/timestamp-converter': '时间戳转换',
         '/base-converter': '进制转换器',
-        '/cron-generator': 'Cron表达式生成器'
+        '/cron-generator': 'Cron表达式生成器',
+        '/json-formatter': 'JSON格式化工具',
+        '/css-formatter': 'CSS格式化工具',
+        '/sql-formatter': 'SQL格式化工具',
+        '/markdown-editor': 'Markdown编辑器',
+        '/api-tester': 'API测试工具',
+        '/extension-icon-generator': '扩展图标生成器'
       }
       return toolNames[this.$route.path] || '未知工具'
     }
