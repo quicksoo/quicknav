@@ -36,6 +36,7 @@ import UnitConverter from './components/UnitConverter.vue'
 import Calculator from './components/Calculator.vue'
 import CronGenerator from './components/CronGenerator.vue'
 import SnowflakeIdGenerator from './components/SnowflakeIdGenerator.vue'
+import WorldClock from './components/WorldClock.vue'
 
 // 新增格式化工具组件
 import JsonFormatter from './components/JsonFormatter.vue'
@@ -44,6 +45,7 @@ import SqlFormatter from './components/SqlFormatter.vue'
 import MarkdownEditor from './components/MarkdownEditor.vue'
 import ApiTester from './components/ApiTester.vue'
 import ExtensionIconGenerator from './components/ExtensionIconGenerator.vue'
+import JavaEntityConverter from './components/JavaEntityConverter.vue'
 
 // 路由配置
 const routes = [
@@ -79,6 +81,7 @@ const routes = [
   { path: '/calculator', component: Calculator },
   { path: '/cron-generator', component: CronGenerator },
   { path: '/snowflake-id', component: SnowflakeIdGenerator },
+  { path: '/world-clock', component: WorldClock },
   
   // 新增格式化工具路由
   { path: '/json-formatter', component: JsonFormatter },
@@ -87,6 +90,7 @@ const routes = [
   { path: '/markdown-editor', component: MarkdownEditor },
   { path: '/api-tester', component: ApiTester },
   { path: '/extension-icon-generator', component: ExtensionIconGenerator },
+  { path: '/java-entity-converter', component: JavaEntityConverter },
 ]
 
 const router = createRouter({

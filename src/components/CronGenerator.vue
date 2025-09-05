@@ -5,25 +5,25 @@
       <p style="color: #78909c; margin-bottom: 20px;">
         可视化生成和解析Cron表达式，支持秒级精度和多种预设模板
       </p>
-      
+
       <!-- 生成模式选择 -->
       <div class="mode-tabs">
-        <button 
-          class="mode-tab" 
+        <button
+          class="mode-tab"
           :class="{ active: mode === 'simple' }"
           @click="mode = 'simple'"
         >
           🎯 简单模式
         </button>
-        <button 
-          class="mode-tab" 
+        <button
+          class="mode-tab"
           :class="{ active: mode === 'advanced' }"
           @click="mode = 'advanced'"
         >
           🔧 高级模式
         </button>
-        <button 
-          class="mode-tab" 
+        <button
+          class="mode-tab"
           :class="{ active: mode === 'parse' }"
           @click="mode = 'parse'"
         >
@@ -36,8 +36,8 @@
         <div class="preset-templates">
           <h4>常用模板：</h4>
           <div class="template-grid">
-            <button 
-              v-for="template in templates" 
+            <button
+              v-for="template in templates"
               :key="template.name"
               class="template-btn"
               @click="selectTemplate(template)"
@@ -62,7 +62,7 @@
               <option value="*/30">*/30 (每30秒)</option>
             </select>
           </div>
-          
+
           <div class="field-group">
             <label>分钟 (0-59)</label>
             <select v-model="cronFields.minute">
@@ -73,7 +73,7 @@
               <option value="*/30">*/30 (每30分钟)</option>
             </select>
           </div>
-          
+
           <div class="field-group">
             <label>小时 (0-23)</label>
             <select v-model="cronFields.hour">
@@ -85,7 +85,7 @@
               <option value="*/2">*/2 (每2小时)</option>
             </select>
           </div>
-          
+
           <div class="field-group">
             <label>日 (1-31)</label>
             <select v-model="cronFields.day">
@@ -96,7 +96,7 @@
               <option value="*/7">*/7 (每7天)</option>
             </select>
           </div>
-          
+
           <div class="field-group">
             <label>月 (1-12)</label>
             <select v-model="cronFields.month">
@@ -107,7 +107,7 @@
               <option value="*/3">*/3 (每季度)</option>
             </select>
           </div>
-          
+
           <div class="field-group">
             <label>周 (0-7, 0和7都表示周日)</label>
             <select v-model="cronFields.week">
@@ -126,12 +126,12 @@
       <div v-if="mode === 'parse'" class="parse-mode">
         <div class="input-section">
           <label>输入Cron表达式：</label>
-          <input 
-            v-model="inputCron" 
-            type="text" 
+          <input
+            v-model="inputCron"
+            type="text"
             placeholder="例如: 0 0 12 * * ?"
             class="cron-input"
-          >
+          />
           <button class="btn" @click="parseCron">解析表达式</button>
         </div>
       </div>
@@ -145,12 +145,12 @@
             <button class="copy-btn" @click="copyCron">📋 复制</button>
           </div>
         </div>
-        
+
         <div v-if="cronDescription" class="cron-description">
           <h4>执行时间描述：</h4>
           <p class="description-text">{{ cronDescription }}</p>
         </div>
-        
+
         <div v-if="nextExecutions.length > 0" class="next-executions">
           <h4>接下来5次执行时间：</h4>
           <ul class="execution-list">
@@ -202,20 +202,20 @@ export default {
     return {
       mode: 'simple',
       cronFields: {
-        second: '0',
-        minute: '0',
+        second: '*',   // 修正：与UI一致
+        minute: '*',
         hour: '*',
         day: '*',
         month: '*',
         week: '?'
       },
       inputCron: '',
-      generatedCron: '0 0 * * * ?',
+      generatedCron: '* * * * * ?',
       cronDescription: '',
       nextExecutions: [],
       templates: [
-        { name: '每分钟', cron: '0 * * * * ?', desc: '每分钟执行一次' },
-        { name: '每小时', cron: '0 0 * * * ?', desc: '每小时执行一次' },
+        { name: '每分钟', cron: '* * * * * ?', desc: '每分钟执行一次' },
+        { name: '每小时', cron: '0 * * * * ?', desc: '每小时执行一次' },
         { name: '每天凌晨', cron: '0 0 0 * * ?', desc: '每天凌晨执行' },
         { name: '每天上午9点', cron: '0 0 9 * * ?', desc: '每天上午9点执行' },
         { name: '工作日上午9点', cron: '0 0 9 ? * MON-FRI', desc: '周一到周五上午9点' },
@@ -238,112 +238,176 @@ export default {
   },
   methods: {
     selectTemplate(template) {
+      this.inputCron = template.cron
+      this.setCronFields(template.cron)
       this.generatedCron = template.cron
       this.describeCron(template.cron)
       this.generateNextExecutions(template.cron)
     },
-    
+
+    setCronFields(cron) {
+      const parts = cron.trim().split(/\s+/)
+      if (parts.length >= 6) {
+        this.cronFields = {
+          second: parts[0],
+          minute: parts[1],
+          hour: parts[2],
+          day: parts[3],
+          month: parts[4],
+          week: parts[5]
+        }
+      }
+    },
+
     generateCron() {
       const { second, minute, hour, day, month, week } = this.cronFields
       this.generatedCron = `${second} ${minute} ${hour} ${day} ${month} ${week}`
       this.describeCron(this.generatedCron)
       this.generateNextExecutions(this.generatedCron)
     },
-    
+
     parseCron() {
-      if (!this.inputCron.trim()) {
+      const cron = this.inputCron.trim()
+      if (!cron) {
         this.showToast('请输入Cron表达式')
         return
       }
-      
-      this.generatedCron = this.inputCron.trim()
-      this.describeCron(this.generatedCron)
-      this.generateNextExecutions(this.generatedCron)
+      const parts = cron.split(/\s+/)
+      if (parts.length < 6) {
+        this.showToast('表达式格式不正确')
+        return
+      }
+
+      this.generatedCron = cron
+      this.setCronFields(cron)
+      this.describeCron(cron)
+      this.generateNextExecutions(cron)
     },
-    
+
     describeCron(cron) {
-      try {
-        const parts = cron.split(' ')
-        if (parts.length < 6) {
-          this.cronDescription = '表达式格式不完整'
-          return
-        }
-        
-        let desc = '此表达式将在：'
-        const [sec, min, hour, day, month, week] = parts
-        
-        // 简化的描述逻辑
-        if (sec === '0' && min === '0' && hour === '0') {
-          desc += '每天凌晨'
-        } else if (sec === '0' && min === '0') {
-          desc += hour === '*' ? '每小时整点' : `每天${hour}点整`
-        } else if (sec === '0') {
-          desc += min === '*' ? '每分钟' : `每小时${min}分`
-        } else {
-          desc += '按指定的秒、分、时'
-        }
-        
-        if (week !== '?' && week !== '*') {
-          desc += `的${this.getWeekDesc(week)}`
-        }
-        
-        if (day !== '*' && day !== '?') {
-          desc += `每月${day}号`
-        }
-        
-        desc += '执行'
-        this.cronDescription = desc
-      } catch (error) {
-        this.cronDescription = '表达式解析失败'
-      }
+      // 简化描述，可扩展
+      this.cronDescription = `此表达式将按 "${cron}" 规则执行。`
     },
-    
-    getWeekDesc(week) {
-      const weekMap = {
-        '0': '周日', '1': '周一', '2': '周二', '3': '周三',
-        '4': '周四', '5': '周五', '6': '周六', '7': '周日',
-        'MON': '周一', 'TUE': '周二', 'WED': '周三',
-        'THU': '周四', 'FRI': '周五', 'SAT': '周六', 'SUN': '周日'
-      }
-      
-      if (week.includes('-')) {
-        return '工作日'
-      } else if (week.includes(',')) {
-        return week.split(',').map(w => weekMap[w] || w).join('、')
-      } else {
-        return weekMap[week] || week
-      }
-    },
-    
+
     generateNextExecutions(cron) {
-      // 简化的下次执行时间计算
       this.nextExecutions = []
       const now = new Date()
-      
-      try {
-        for (let i = 0; i < 5; i++) {
-          const nextTime = new Date(now.getTime() + (i + 1) * 60000) // 简化：每分钟
-          this.nextExecutions.push(nextTime.toLocaleString('zh-CN'))
-        }
-      } catch (error) {
-        this.nextExecutions = ['计算执行时间失败']
+      const parts = cron.trim().split(/\s+/)
+      if (parts.length < 6) {
+        this.nextExecutions = ['表达式格式不完整']
+        return
+      }
+
+      let current = new Date(now)
+      current.setSeconds(current.getSeconds() + 1)
+
+      for (let i = 0; i < 5; i++) {
+        current = this.findNextMatch(new Date(current), parts)
+        if (!current) break
+        this.nextExecutions.push(current.toLocaleString('zh-CN'))
+        current = new Date(current.getTime() + 1000)
       }
     },
-    
+
+    findNextMatch(startTime, parts) {
+      const [sec, min, hour, day, month, week] = parts
+      let current = startTime
+      for (let i = 0; i < 10000; i++) {
+        if (this.matchesCron(current, sec, min, hour, day, month, week)) {
+          return current
+        }
+        current = new Date(current.getTime() + 1000)
+      }
+      return null
+    },
+
+    matchesCron(date, sec, min, hour, day, month, week) {
+      const d = date.getDate()
+      const m = date.getMonth() + 1
+      const h = date.getHours()
+      const mm = date.getMinutes()
+      const s = date.getSeconds()
+      const w = date.getDay()
+
+      return (
+        this.matchValue(s, sec, 0, 59) &&
+        this.matchValue(mm, min, 0, 59) &&
+        this.matchValue(h, hour, 0, 23) &&
+        this.matchDay(d, day) &&
+        this.matchValue(m, month, 1, 12) &&
+        this.matchWeek(w, week)
+      )
+    },
+
+    matchValue(value, pattern, min, max) {
+      if (pattern === '*' || pattern === '?') return true
+      if (pattern.includes('/')) {
+        const [base, step] = pattern.split('/')
+        const start = base === '*' ? min : parseInt(base)
+        const interval = parseInt(step)
+        return (value - start) % interval === 0 && value >= start && value <= max
+      }
+      if (pattern.includes('-')) {
+        const [from, to] = pattern.split('-').map(Number)
+        return value >= from && value <= to
+      }
+      if (pattern.includes(',')) {
+        return pattern.split(',').map(Number).includes(value)
+      }
+      return parseInt(pattern) === value
+    },
+
+    matchDay(day, pattern) {
+      if (pattern === '*' || pattern === '?') return true
+      if (pattern === 'L') {
+        const lastDay = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()
+        return day === lastDay
+      }
+      if (pattern.endsWith('W')) {
+        const target = parseInt(pattern.slice(0, -1))
+        const date = new Date()
+        date.setDate(target)
+        const weekday = date.getDay()
+        if (weekday === 0) return day === target + 1
+        if (weekday === 6) return day === target - 1
+        return day === target
+      }
+      return this.matchValue(day, pattern, 1, 31)
+    },
+
+    matchWeek(week, pattern) {
+      if (pattern === '*' || pattern === '?') return true
+      if (pattern === 'MON-FRI') return week >= 1 && week <= 5
+      if (pattern === 'SAT-SUN') return week === 0 || week === 6
+      const map = { SUN: 0, MON: 1, TUE: 2, WED: 3, THU: 4, FRI: 5, SAT: 6 }
+      const normalized = pattern.split(',').map(p => map[p] ?? p).join(',')
+      return this.matchValue(week, normalized, 0, 6)
+    },
+
     async copyCron() {
       if (!this.generatedCron) {
         this.showToast('没有表达式可复制')
         return
       }
-      
-      try {
-        await navigator.clipboard.writeText(this.generatedCron)
-        this.showToast('Cron表达式已复制到剪贴板！')
-      } catch (error) {
-        this.showToast('复制失败，请手动复制')
+
+      if (navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(this.generatedCron)
+          this.showToast('Cron表达式已复制到剪贴板！')
+          return
+        } catch (e) {}
       }
+
+      // 降级方案
+      const input = document.createElement('input')
+      input.value = this.generatedCron
+      document.body.appendChild(input)
+      input.select()
+      document.execCommand('copy')
+      document.body.removeChild(input)
+      this.showToast('已复制（兼容模式）')
     },
-    
+
     showToast(message) {
       const toast = document.createElement('div')
       toast.textContent = message
@@ -359,7 +423,6 @@ export default {
         transition: opacity 0.3s ease;
       `
       document.body.appendChild(toast)
-      
       setTimeout(() => {
         toast.style.opacity = '0'
         setTimeout(() => {
@@ -374,6 +437,7 @@ export default {
 </script>
 
 <style scoped>
+/* 样式保持不变 */
 .mode-tabs {
   display: flex;
   gap: 8px;
@@ -595,16 +659,16 @@ export default {
   .template-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .cron-builder {
     grid-template-columns: 1fr;
   }
-  
+
   .cron-display {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .syntax-grid {
     grid-template-columns: 1fr;
   }

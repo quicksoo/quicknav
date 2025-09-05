@@ -11,13 +11,8 @@
       <!-- 可滚动的菜单区域 -->
       <div class="nav-scroll-container">
         <nav class="nav-menu">
-          <div
-            v-for="category in categories"
-            :key="category.name"
-            class="nav-category"
-            :class="{ active: selectedCategory === category.name }"
-            @click="selectCategory(category.name)"
-          >
+          <div v-for="category in categories" :key="category.name" class="nav-category"
+            :class="{ active: selectedCategory === category.name }" @click="selectCategory(category.name)">
             <div class="category-item">
               <span class="category-icon">{{ category.icon }}</span>
               <span class="category-name">{{ category.name }}</span>
@@ -34,20 +29,16 @@
         <div class="header-content">
           <div class="breadcrumb">
             <span v-if="$route.path === '/' && !selectedCategory">工具分类</span>
-            <span v-else-if="$route.path === '/' && selectedCategory">{{ getSelectedCategoryIcon() }} {{ selectedCategory }}</span>
+            <span v-else-if="$route.path === '/' && selectedCategory">{{ getSelectedCategoryIcon() }} {{
+              selectedCategory }}</span>
             <span v-else>{{ getCurrentToolName() }}</span>
           </div>
 
           <div class="right-section">
             <!-- 广告展示区域 -->
             <div class="ad-section" v-if="enabledAds.length > 0">
-              <div
-                v-for="ad in enabledAds"
-                :key="ad.id"
-                class="ad-banner"
-                :style="{ background: ad.bgColor, color: ad.textColor }"
-                @click="openAdLink(ad.link)"
-              >
+              <div v-for="ad in enabledAds" :key="ad.id" class="ad-banner"
+                :style="{ background: ad.bgColor, color: ad.textColor }" @click="openAdLink(ad.link)">
                 <div class="ad-content">
                   <div class="ad-title">{{ ad.title }}</div>
                   <div class="ad-subtitle">{{ ad.subtitle }}</div>
@@ -61,7 +52,8 @@
             <!-- 主题切换按钮 -->
             <div class="theme-toggle" @click="toggleTheme" :title="isDark ? '切换到浅色模式' : '切换到深色模式'">
               <div class="theme-icon">
-                <svg v-if="isDark" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg v-if="isDark" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                  fill="none" stroke="#ffd600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="5"></circle>
                   <line x1="12" y1="1" x2="12" y2="3"></line>
                   <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -72,7 +64,8 @@
                   <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                   <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                 </svg>
-                <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
               </div>
@@ -89,12 +82,8 @@
               <p>{{ getSelectedCategoryDescription() }}</p>
             </div>
             <div class="tools-grid">
-              <router-link
-                v-for="tool in getSelectedCategoryTools()"
-                :key="tool.path"
-                :to="tool.path"
-                class="tool-card"
-              >
+              <router-link v-for="tool in getSelectedCategoryTools()" :key="tool.path" :to="tool.path"
+                class="tool-card">
                 <div class="tool-icon">{{ tool.icon }}</div>
                 <h3>{{ tool.name }}</h3>
                 <p>{{ tool.description }}</p>
@@ -229,7 +218,8 @@ export default {
           description: '时间和日期相关的转换和计算工具',
           tools: [
             { path: '/timestamp-converter', name: '时间戳转换', icon: '⏰', description: 'Unix时间戳与日期时间互转工具' },
-            { path: '/cron-generator', name: 'Cron表达式生成器', icon: '⏱️', description: '可视化生成和解析Cron表达式，支持多种预设模板' }
+            { path: '/cron-generator', name: 'Cron表达式生成器', icon: '⏱️', description: '可视化生成和解析Cron表达式，支持多种预设模板' },
+            { path: '/world-clock', name: '世界时间', icon: '🌍', description: '查看全世界不同时区的时间' }
           ]
         },
         {
@@ -253,7 +243,8 @@ export default {
             { path: '/sql-formatter', name: 'SQL格式化工具', icon: '🗃️', description: 'SQL代码格式化、压缩、验证和美化工具' },
             { path: '/markdown-editor', name: 'Markdown编辑器', icon: '📝', description: '在线Markdown编辑器，支持实时预览、语法高亮和常用工具' },
             { path: '/api-tester', name: 'API测试工具', icon: '🌐', description: 'HTTP API接口测试工具，支持GET、POST等方法' },
-            { path: '/extension-icon-generator', name: '扩展图标生成器', icon: '🔌', description: '一键生成Chrome浏览器扩展所需的多种尺寸图标' }
+            { path: '/extension-icon-generator', name: '扩展图标生成器', icon: '🔌', description: '一键生成Chrome浏览器扩展所需的多种尺寸图标' },
+            { path: '/java-entity-converter', name: 'Java实体转换器', icon: '☕', description: 'Java实体类与JSON格式互转工具' }
           ]
         },
         {
@@ -347,7 +338,9 @@ export default {
         '/sql-formatter': 'SQL格式化工具',
         '/markdown-editor': 'Markdown编辑器',
         '/api-tester': 'API测试工具',
-        '/extension-icon-generator': '扩展图标生成器'
+        '/world-clock': '世界时钟',
+        '/extension-icon-generator': '扩展图标生成器',
+        '/java-entity-converter': 'Java实体转换器'
       }
       return toolNames[this.$route.path] || '未知工具'
     },
@@ -418,7 +411,8 @@ export default {
   display: flex;
   flex-direction: column;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
-  overflow: hidden; /* 禁止整体滚动，防止 header 被影响 */
+  overflow: hidden;
+  /* 禁止整体滚动，防止 header 被影响 */
 }
 
 /* 固定头部 - 不随菜单滚动 */
@@ -430,7 +424,8 @@ export default {
   border-bottom: 1px solid var(--color-border-light);
   cursor: pointer;
   transition: all 0.2s ease;
-  flex-shrink: 0; /* 关键：禁止压缩 */
+  flex-shrink: 0;
+  /* 关键：禁止压缩 */
   background: var(--color-bg-primary);
   z-index: 10;
 }
@@ -556,7 +551,8 @@ export default {
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 两端对齐 */
+  justify-content: space-between;
+  /* 两端对齐 */
   width: 100%;
 }
 
@@ -572,13 +568,15 @@ export default {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-left: auto; /* 将整个右侧区域推到最右边 */
+  margin-left: auto;
+  /* 将整个右侧区域推到最右边 */
 }
 
 /* 广告区域样式 */
 .ad-section {
   display: flex;
-  justify-content: flex-end; /* 靠右对齐 */
+  justify-content: flex-end;
+  /* 靠右对齐 */
   gap: 12px;
 }
 
