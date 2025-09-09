@@ -841,4 +841,29 @@ export default {
     padding: 24px 20px;
   }
 }
+
+/* 备案信息样式 */
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.beian a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.beian a:hover {
+  color: #ffd600; /* quickYellow color */
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 16px 0;
+    font-size: 12px;
+  }
+}
 </style>

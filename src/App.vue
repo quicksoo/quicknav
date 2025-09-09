@@ -98,6 +98,15 @@
           <router-view />
         </div>
       </div>
+      
+      <!-- 统一底部区域 -->
+      <footer class="app-footer">
+        <div class="footer-content">
+          <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer" class="beian-link">
+            陕ICP备2025077222号
+          </a>
+        </div>
+      </footer>
     </main>
   </div>
 </template>
@@ -393,6 +402,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 /* 全局布局 */
 #app {
@@ -742,6 +752,41 @@ export default {
   margin: 0;
 }
 
+/* 底部区域样式 */
+.app-footer {
+  background: var(--color-bg-primary);
+  border-top: 1px solid var(--color-border);
+  padding: 8px 0;
+  text-align: center;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.beian-link {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.beian-link:hover {
+  color: #0099ff; 
+}
+
 /* 移动端适配 */
 @media (max-width: 768px) {
   #app {
@@ -851,5 +896,20 @@ export default {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+  
+  /* 底部区域移动端适配 */
+  .app-footer {
+    padding: 16px 0;
+  }
+  
+  .footer-content {
+    padding: 0 16px;
+  }
+  
+  .copyright,
+  .beian-link {
+    font-size: 12px;
+  }
 }
+
 </style>
